@@ -1,0 +1,14 @@
+body {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+footer {
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
+
+
+.form {height: 50%; width:70%; padding: 10px; position: relative; left: 48px}
+.form-group {width: 40%}

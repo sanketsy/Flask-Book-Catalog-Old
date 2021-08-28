@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h3>Create new book</h3>
+    <hr>
+    {{ createBookForm.hidden_tag() }}
+    {{ wtf.quick_form(createBookForm) }}
+{% endblock %}

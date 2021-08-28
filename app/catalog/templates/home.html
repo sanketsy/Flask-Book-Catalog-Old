@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="row pt-5">
+        {% for book in books %}
+                <div class="col-md-4">
+                    <div class="ml-5 p-3">
+                        <img src="static/img/{{ book.image }}" alt="{{ book.image }}" width="200" height="190">
+                        <h4>{{ book.title }}</h4>
+                        <p>{{ book.author }}</p>
+                        <p>{{ book.format }}</p>
+                        <p>{{ book.avg_rating }}</p>
+                        <p>{{ book.num_pages }}</p>
+                        <a href="{{ url_for('main.display_publisher', publisher_id=book.pub_id) }}">Publisher ID: {{ book.pub_id }}</a>
+                        <br>
+                        <span class="badge badge-success">
+                            <a href="{{ url_for('main.create_book', pub_id=book.pub_id) }}" class="text-white"  >Create</a>
+                        </span>
+                        <span class="badge badge-primary">
+                            <a href="{{ url_for('main.edit_book', book_id=book.id) }}" class="text-white"  >Edit</a>
+                        </span>
+                        <span class="badge badge-danger">
+                            <a href="{{ url_for('main.delete_book', book_id=book.id) }}" class="text-white"  >Delete</a>
+                        </span>
+
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

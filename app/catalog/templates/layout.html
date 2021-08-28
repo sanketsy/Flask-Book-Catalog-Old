@@ -1,0 +1,76 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>Books Inc</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/myStyles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
+    {% endblock head %}
+</head>
+<body>
+{% block body %}
+    {% block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a style="text-decoration: none" class="navbar-brand" href="{{ url_for('main.display_books') }}">
+                    <h3>Books around the corner</h3>
+                </a>
+                <ul class="navbar-nav">
+                    <li><a class="nav-item nav-link" href="{{ url_for('main.display_books') }}">Home</a></li>
+                    <li><a class="nav-item nav-link" href="{{ url_for('authentication.register_user') }}">Register</a></li>
+
+                    {% if current_user.is_authenticated %}
+                    <li><a class="nav-item nav-link" href="{{ url_for('authentication.logout_the_user') }}">Log out</a></li>
+                    {% else %}
+                    <li><a class="nav-item nav-link" href="{{ url_for('authentication.login_the_user') }}">Sign In</a></li>
+                    {% endif %}
+
+                    <li>
+                        <a class="nav-item nav-link" href="">
+                        <!-- IMP: current_user is a variable given by Flask which represent Current user  -->
+                        {% if current_user.is_authenticated %}
+                            LoggedIn as: <b style="color: deeppink">{{ current_user.user_name.title() }}</b>
+                        {% else %}
+                            Not LoggedIn
+                        {% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    {% endblock navbar %}
+
+    <div class="pt-3">
+    {% for message in get_flashed_messages() %}
+        <div class="container alert alert-info alert-dismissible" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">Close</button>
+        </div>
+    {% endfor %}
+    </div>
+
+
+    <div class="container">
+        {% block content %} {% endblock content %}
+    </div>
+
+    {% block footer %}
+        <footer>
+            <div class="container">
+                <br>
+                <p class="text-center small text-white">Books around the corner | sanketsy | 2021</p>
+            </div>
+        </footer>
+    {% endblock footer %}
+{% endblock body %}
+</body>
+</html>
